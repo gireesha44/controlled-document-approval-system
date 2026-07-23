@@ -1,7 +1,7 @@
 # 📄 Controlled Document Approval System
 ### ElevateBox Engineering Challenge
 
-A full-stack document approval workflow built with **Next.js**, **TypeScript**, **Drizzle ORM**, and **SQLite**, focusing on **server-side authorization**, **workflow integrity**, **audit logging**, **atomic transactions**, and **optimistic concurrency control**.
+A full-stack document approval workflow built with **Next.js**, **TypeScript**, **Drizzle ORM**, and **SQLite**, demonstrating **server-side authorization**, **workflow state management**, **audit logging**, **transactional consistency**, and **optimistic concurrency control**.
 
 ---
 
@@ -16,18 +16,32 @@ A full-stack document approval workflow built with **Next.js**, **TypeScript**, 
 
 ---
 
-## ⚙️ Setup
+## ⚙️ Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Install dependencies
 
 ```bash
-git clone <repository-url>
-cd controlled-document-approval-system
-
 npm install
+```
+
+### Seed the database
+
+```bash
 npm run seed
+```
+
+### Start the development server
+
+```bash
 npm run dev
 ```
 
-Open: **http://localhost:3000**
+Open **http://localhost:3000**
 
 ---
 
@@ -37,29 +51,32 @@ Open: **http://localhost:3000**
 npm test
 ```
 
+The test suite validates workflow rules, permissions, audit logging, optimistic concurrency control, and state transitions.
+
 ---
 
 ## 👥 Seeded Users
 
-| User | Role |
-|------|------|
-| alice@example.com | Author |
-| bob@example.com | Reviewer |
-| admin@example.com | Admin |
-| viewer@example.com | Viewer |
+| Email | Role |
+|--------|------|
+| `alice@example.com` | Author |
+| `bob@example.com` | Reviewer |
+| `admin@example.com` | Admin |
+| `viewer@example.com` | Viewer |
 
-Use the **Identity Switcher** in the application to test different roles.
+Use the built-in **Identity Switcher** to test the application with different roles.
 
 ---
 
-## ✅ Key Features
+## ✅ Features
 
-- Server-side role-based authorization
-- Strict document workflow state machine
+- Role-based server-side authorization
+- Document workflow state machine
+- Draft → Submit → Review → Publish lifecycle
+- Archive workflow
 - Immutable audit history
 - Atomic state changes with audit logging
 - Optimistic concurrency control (409 Conflict)
-- Role-specific dashboards
 - Automated domain tests
 
 ---
@@ -68,12 +85,12 @@ Use the **Identity Switcher** in the application to test different roles.
 
 ```
 src/
- ├── app/        # UI & API Routes
- ├── db/         # Database & Seed
- └── lib/        # Business Logic
+├── app/          # UI & API Routes
+├── db/           # Database, Schema & Seed
+└── lib/          # Domain Logic
 
-tests/
-DESIGN.md
+tests/            # Domain Tests
+DESIGN.md         # Architecture & Design Decisions
 README.md
 ```
 
@@ -81,23 +98,27 @@ README.md
 
 ## 📖 Documentation
 
-- **DESIGN.md** explains:
-  - System invariants
-  - Authorization model
-  - Concurrency handling
-  - Transaction strategy
-  - Design decisions
+See **DESIGN.md** for:
+
+- System invariants
+- Authorization model
+- Workflow validation
+- Transaction strategy
+- Optimistic concurrency
+- Design decisions and trade-offs
 
 ---
 
 ## ✅ Assignment Coverage
 
-- Seeded Login
-- Draft Creation & Editing
-- Submit → Review → Publish Workflow
-- Archive Workflow
-- Audit History
-- Optimistic Concurrency Control
-- Server-side Authorization
-- Atomic Transactions
-- Automated Tests
+- ✔ Seeded Login
+- ✔ Draft Creation & Editing
+- ✔ Submit for Review
+- ✔ Approve / Reject
+- ✔ Publish
+- ✔ Archive
+- ✔ Audit History
+- ✔ Optimistic Concurrency Control
+- ✔ Server-side Authorization
+- ✔ Atomic Transactions
+- ✔ Automated Tests
