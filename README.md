@@ -1,97 +1,103 @@
-# Controlled Document Approval System — ElevateBox Engineering Challenge
+# 📄 Controlled Document Approval System
+### ElevateBox Engineering Challenge
 
-A full-stack, enterprise-grade Controlled Document Approval System engineered for data integrity, atomic audit logging, optimistic concurrency control (OCC), and strict server-side authorization.
+A full-stack document approval workflow built with **Next.js**, **TypeScript**, **Drizzle ORM**, and **SQLite**, focusing on **server-side authorization**, **workflow integrity**, **audit logging**, **atomic transactions**, and **optimistic concurrency control**.
 
 ---
 
-## Quick Start & Running Locally
+## 🚀 Tech Stack
 
-### Prerequisites
-- Node.js `v18+` or `v20+` or `v22+`
-- `npm`
+- Next.js
+- TypeScript
+- Drizzle ORM
+- SQLite
+- Tailwind CSS
+- Vitest
 
-### 1. Install Dependencies
+---
+
+## ⚙️ Setup
+
 ```bash
+git clone <repository-url>
+cd controlled-document-approval-system
+
 npm install
-```
-
-### 2. Seed Database
-Seeds initial users (`alice`, `bob`, `admin`, `viewer`) and sample documents in various workflow states:
-```bash
 npm run seed
-# or directly:
-node node_modules/tsx/dist/cli.mjs src/db/seed.ts
-```
-
-### 3. Run Development Server
-```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 4. Run Automated Test Suite
-Executes 9 domain invariant tests covering all stories, permissions, OCC concurrency, and atomic transactions:
+Open: **http://localhost:3000**
+
+---
+
+## 🧪 Run Tests
+
 ```bash
 npm test
-# or directly:
-node node_modules/tsx/dist/cli.mjs tests/run_tests.ts
 ```
 
 ---
 
-## Seeded Users & Logins
+## 👥 Seeded Users
 
-The application features a 1-click **Identity Switcher** header bar for rapid testing across all roles:
+| User | Role |
+|------|------|
+| alice@example.com | Author |
+| bob@example.com | Reviewer |
+| admin@example.com | Admin |
+| viewer@example.com | Viewer |
 
-| User Name | Email | Role | Capabilities |
-| :--- | :--- | :--- | :--- |
-| **Alice Johnson** | `alice@example.com` | `author` | Create drafts, edit own drafts/rejected docs, submit own drafts |
-| **Bob Smith** | `bob@example.com` | `reviewer` | Approve/reject submitted docs (excluding own), publish approved docs |
-| **System Admin** | `admin@example.com` | `admin` | Full workflow access + archive active documents |
-| **Valerie Viewer** | `viewer@example.com` | `viewer` | Read-only access to **published** documents only |
-
----
-
-## Key System Features & Integrity Guarantees
-
-### 1. Server-Side Permission & Role Enforcement
-UI buttons adapt to user identity, but **all security checks are strictly enforced on the server**. Hitting API endpoints directly with invalid credentials or wrong roles triggers explicit HTTP `401`, `403`, or `422` error responses.
-
-### 2. Optimistic Concurrency Control (OCC)
-Prevents silent data loss when concurrent users review or update the same document. Every mutation validates `expectedVersion`. Stale writes (where `expectedVersion !== currentVersion`) fail immediately with a `409 Conflict` error and instructions to refresh.
-
-### 3. Atomic Database Transactions & Audit Logs
-Every document state change (`draft` → `submitted` → `approved` → `published` / `archived`) and its corresponding audit log entry are wrapped inside a single SQLite transaction (`rawDb.transaction(...)`). Neither state can drift out of sync.
-
-### 4. Self-Review Blockade
-The system enforces a conflict-of-interest check: even if an Author holds a Reviewer role, they are strictly blocked from approving or rejecting their own documents on the server.
-
-### 5. Interactive UI Features
-- **State Machine Map**: Visual highlight of active document state along the workflow pipeline.
-- **Simulate OCC Conflict Button**: 1-click button in the UI drawer to simulate a stale client write and verify the server's 409 Conflict rejection.
-- **Audit Timeline**: Real-time chronological audit trail for every document action.
+Use the **Identity Switcher** in the application to test different roles.
 
 ---
 
-## Project Structure
+## ✅ Key Features
+
+- Server-side role-based authorization
+- Strict document workflow state machine
+- Immutable audit history
+- Atomic state changes with audit logging
+- Optimistic concurrency control (409 Conflict)
+- Role-specific dashboards
+- Automated domain tests
+
+---
+
+## 📂 Project Structure
 
 ```
-├── src/
-│   ├── app/
-│   │   ├── api/             # REST endpoints (documents, mutations, seed)
-│   │   ├── globals.css      # Styling & theme variables
-│   │   ├── layout.tsx       # Root layout
-│   │   └── page.tsx         # Interactive dashboard UI
-│   ├── db/
-│   │   ├── index.ts         # SQLite connection & WAL pragma
-│   │   ├── schema.ts        # Drizzle ORM tables (users, documents, audit_logs)
-│   │   └── seed.ts          # Database seed script
-│   └── lib/
-│       └── domain.ts        # Domain Core, State Machine & Business Rules
-├── tests/
-│   └── domain.test.ts       # Automated Vitest test suite
-├── DESIGN.md                # System invariants & architectural decision notes
-├── package.json
-├── tsconfig.json
-└── README.md
+src/
+ ├── app/        # UI & API Routes
+ ├── db/         # Database & Seed
+ └── lib/        # Business Logic
+
+tests/
+DESIGN.md
+README.md
 ```
+
+---
+
+## 📖 Documentation
+
+- **DESIGN.md** explains:
+  - System invariants
+  - Authorization model
+  - Concurrency handling
+  - Transaction strategy
+  - Design decisions
+
+---
+
+## ✅ Assignment Coverage
+
+- Seeded Login
+- Draft Creation & Editing
+- Submit → Review → Publish Workflow
+- Archive Workflow
+- Audit History
+- Optimistic Concurrency Control
+- Server-side Authorization
+- Atomic Transactions
+- Automated Tests
