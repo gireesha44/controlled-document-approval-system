@@ -1,5 +1,6 @@
 # 📄 Controlled Document Approval System
-### ElevateBox Engineering Challenge
+
+### ElevateBox Engineering Challenge Submission
 
 A full-stack document approval workflow built with **Next.js**, **TypeScript**, **Drizzle ORM**, and **SQLite**, demonstrating **server-side authorization**, **workflow state management**, **audit logging**, **transactional consistency**, and **optimistic concurrency control**.
 
@@ -23,19 +24,23 @@ A full-stack document approval workflow built with **Next.js**, **TypeScript**, 
 - Node.js 18+
 - npm
 
-### Install dependencies
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Seed the database
+### Environment Variables
+
+This project does not require any additional environment variables for local development.
+
+### Seed the Database
 
 ```bash
 npm run seed
 ```
 
-### Start the development server
+### Start the Development Server
 
 ```bash
 npm run dev
@@ -70,20 +75,20 @@ Use the built-in **Identity Switcher** to test the application with different ro
 
 ## ✅ Features
 
-- Role-based server-side authorization
+- Server-side role-based authorization
 - Document workflow state machine
-- Draft → Submit → Review → Publish lifecycle
+- Draft → Submit → Review → Approve/Reject → Publish lifecycle
 - Archive workflow
 - Immutable audit history
 - Atomic state changes with audit logging
-- Optimistic concurrency control (409 Conflict)
+- Optimistic concurrency control (HTTP 409 Conflict)
 - Automated domain tests
 
 ---
 
 ## 📂 Project Structure
 
-```
+```text
 src/
 ├── app/          # UI & API Routes
 ├── db/           # Database, Schema & Seed
@@ -104,7 +109,7 @@ See **DESIGN.md** for:
 - Authorization model
 - Workflow validation
 - Transaction strategy
-- Optimistic concurrency
+- Optimistic concurrency handling
 - Design decisions and trade-offs
 
 ---
